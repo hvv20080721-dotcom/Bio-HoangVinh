@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoàng Vinh | Personal Bio</title>
+    <!-- Font Inter & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #060913;
+            --card-bg: rgba(15, 23, 42, 0.65);
+            --card-hover: rgba(30, 41, 59, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-neon: #00f2fe;
+            --secondary-neon: #9d4edd;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Animated Neon Orbs */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            z-index: -1;
+            animation: orbFloat 10s infinite alternate ease-in-out;
+        }
+
+        body::before {
+            background: var(--primary-neon);
+            top: -50px;
+            left: -50px;
+        }
+
+        body::after {
+            background: var(--secondary-neon);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 50px) scale(1.2); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            text-align: center;
+            padding: 28px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 18px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Rotating Glow Ring around Avatar */
+        .avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon), var(--primary-neon));
+            z-index: 1;
+            animation: rotateGlow 4s linear infinite;
+            filter: blur(4px);
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: #10b981;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
+            z-index: 3;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bio {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            font-weight: 400;
+        }
+
+        /* Links List Staggered Entrance */
+        .links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-main);
+            text-decoration: none;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+
+        .link-card:nth-child(1) { animation-delay: 0.05s; }
+        .link-card:nth-child(2) { animation-delay: 0.1s; }
+        .link-card:nth-child(3) { animation-delay: 0.15s; }
+        .link-card:nth-child(4) { animation-delay: 0.2s; }
+        .link-card:nth-child(5) { animation-delay: 0.25s; }
+        .link-card:nth-child(6) { animation-delay: 0.3s; }
+        .link-card:nth-child(7) { animation-delay: 0.35s; }
+        .link-card:nth-child(8) { animation-delay: 0.4s; }
+        .link-card:nth-child(9) { animation-delay: 0.45s; }
+
+        /* Shimmer Effect on Cards */
+        .link-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.08), 
+                transparent
+            );
+            transform: rotate(30deg);
+            transition: 0.6s;
+        }
+
+        .link-card:hover::after {
+            left: 130%;
+        }
+
+        .link-card:hover, .link-card:active {
+            background: var(--card-hover);
+            border-color: rgba(0, 242, 254, 0.5);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.25);
+        }
+
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary-neon);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover .icon-box {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        .link-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .action-icon {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .link-card:hover .action-icon {
+            color: var(--primary-neon);
+            transform: translateX(4px);
+        }
+
+        /* Modal Animated Glassmorphism */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 28px;
+            border-radius: 28px;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .qr-image {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            border-radius: 16px;
+            margin: 18px 0;
+            background: #fff;
+            padding: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            margin-top: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Profile -->
+        <div class="profile-card">
+            <div class="avatar-wrapper">
+                <!-- Sử dụng ảnh QR Messenger làm Avatar hiển thị tạm -->
+                <img src="https://lh3.googleusercontent.com/d/13VLhhdzwrIlZBqnu9pIQuD5bab5yU90H" alt="Hoàng Vinh" class="avatar">
+                <div class="badge"></div>
+            </div>
+            <h1 class="name">Hoàng Vinh</h1>
+            <p class="bio">Tech Enthusiast & Digital Creator</p>
+        </div>
+
+        <!-- Links List -->
+        <div class="links-wrapper">
+            
+            <div class="link-card" onclick="openModal('Messenger', 'https://lh3.googleusercontent.com/d/13VLhhdzwrIlZBqnu9pIQuD5bab5yU90H')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-brands fa-facebook-messenger"></i></div>
+                    <span class="link-text">Messenger</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('Zalo', 'https://lh3.googleusercontent.com/d/1J1jfTGj7oyfNGEvUHhuxvfBYDRKzJI3J')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-solid fa-comment-dots"></i></div>
+                    <span class="link-text">Zalo</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('TikTok', 'https://lh3.googleusercontent.com/d/18SCODUKu7aUgQMgQIdAJ-mNMEFqDJGr2')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-brands fa-tiktok"></i></div>
+                    <span class="link-text">TikTok</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('Locket', 'https://lh3.googleusercontent.com/d/1vPfOZyggK_qVDScPV48zev63aS77a7Ca')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-solid fa-heart"></i></div>
+                    <span class="link-text">Locket</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('Số điện thoại', 'https://lh3.googleusercontent.com/d/15qId5a5EJakZaJRqvVssaWaJD-_sEipg')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                    <span class="link-text">Số điện thoại</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('MoMo', 'https://lh3.googleusercontent.com/d/1NTgJP4mjQznh_nEjTHpBrCGoMzv337uK')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+                    <span class="link-text">MoMo</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('WeChat', 'https://lh3.googleusercontent.com/d/14gr1gqQF2b2a5hFnQtP28hoF5k032QIV')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-brands fa-weixin"></i></div>
+                    <span class="link-text">WeChat</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('Weibo', 'https://lh3.googleusercontent.com/d/1PzpT1WSdel8Bewjue5Wf_epYSKyury0t')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-brands fa-weibo"></i></div>
+                    <span class="link-text">Weibo</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openModal('Douyin', 'https://lh3.googleusercontent.com/d/1awOCZ_g4uuFYeYc-u066fKGIz0B5I2mA')">
+                <div class="link-info">
+                    <div class="icon-box"><i class="fa-solid fa-video"></i></div>
+                    <span class="link-text">Douyin</span>
+                </div>
+                <i class="fa-solid fa-qrcode action-icon"></i>
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 Hoàng Vinh. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Modal QR Code -->
+    <div class="modal" id="qrModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 id="modalTitle">Mã QR</h3>
+            <img id="modalQr" src="" alt="QR Code" class="qr-image">
+            <br>
+            <button class="close-btn" onclick="closeModalDirect()">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, qrUrl) {
+            document.getElementById('modalTitle').innerText = 'Mã QR ' + title;
+            document.getElementById('modalQr').src = qrUrl;
+            document.getElementById('qrModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target.id === 'qrModal') {
+                document.getElementById('qrModal').classList.remove('active');
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
